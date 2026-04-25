@@ -25,17 +25,42 @@ class TIA_wrapper:
 
         return projects
     
-    def list_plcs(self, project_name):
+    def get_project_by_name(self, project_name):
+
+        project_name += ".ap20"
 
         project_path = os.path.join(projects_folder, project_name)
 
         project = self.portal.open_project(project_path)
 
+        return project
+    
+    def list_plcs(self, project_name):
+
+        project = self.get_project_by_name(project_name)
+
+        plcs = project.get_plcs()
+
+        plc_names = []
+
+        for plc in plcs:
+            plc_names.append(plc.get_name())
+
+        return plc_names
+    
+    def list_program_blocks(self, project_name, plc_name):
+
+        project = self.get_project_by_name(project_name)
+
         plcs = project.get_plcs()
 
         for plc in plcs:
-            plc = plc.get_name()
-
-        return plcs
-    
+            if plc.get_name() == plc_name:
+                program_blocks = plc.get_program_blocks()
+                block_names = []
+                for block in program_blocks:
+                    block_names.append(block.get_name())
+                return block_names
+        
+        return None
     
