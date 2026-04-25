@@ -1,10 +1,7 @@
 from threading import Lock
 from pathlib import Path
-
 from flask import Flask, jsonify, send_from_directory
-
 from TIA_wrapper import TIA_wrapper
-
 
 WEB_UI_DIR = Path(__file__).parent / "web ui"
 

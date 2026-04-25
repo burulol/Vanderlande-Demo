@@ -7,10 +7,13 @@ function onLoad() {
     projectSelect.addEventListener("change", (event) => {
         const selectedProject = event.target.value;
         const plcSelectElement = document.getElementById("plc-select");
+
+        resetPlcSelect();
+
         if (selectedProject != "") {
             fetchPLCs(selectedProject);
             plcSelectElement.disabled = false;
-        } else resetPlcSelect();
+        }
     });
 
     // Create event listener for PLC selection
@@ -21,12 +24,14 @@ function onLoad() {
         const selectedPLC = event.target.value;
         const blockSelectElement = document.getElementById("block-select");
 
+        resetBlockSelect()
+
         if (selectedPLC != "") {
             const selectedProject = projectSelect.value;
             fetchBlocks(selectedProject, selectedPLC);
             blockSelectElement.disabled = false;
-        } else resetBlockSelect();
-        });
+        }
+    });
 
     // Create event listener for block selection
 
@@ -74,6 +79,7 @@ function populateProjectSelect(projects) {
 }
 
 function populatePLCSelect(plcs) {
+
     const plcSelectElement = document.getElementById("plc-select");
     plcSelectElement.innerHTML = "";
 

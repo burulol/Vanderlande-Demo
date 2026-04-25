@@ -46,6 +46,7 @@ class TIA_wrapper:
         for plc in plcs:
             plc_names.append(plc.get_name())
 
+        project.close()
         return plc_names
     
     def list_program_blocks(self, project_name, plc_name):
@@ -60,8 +61,11 @@ class TIA_wrapper:
                 block_names = []
                 for block in program_blocks:
                     block_names.append(block.get_name())
+
+                project.close()
                 return block_names
         
+        project.close()
         return []
     
     def list_SCL_blocks(self, project_name, plc_name):
@@ -76,8 +80,11 @@ class TIA_wrapper:
                 for block in program_blocks:
                     if block.get_property(name = 'ProgrammingLanguage') == 'SCL' and block.get_property(name = 'IsKnowHowProtected') == 'False':
                         scl_blocks.append(block.get_name())
+
+                project.close()
                 return scl_blocks
         
+        project.close()
         return []
 
     def get_code(self, project_name, plc_name, block_name):
@@ -93,11 +100,21 @@ class TIA_wrapper:
                     if block.get_name() == block_name:
                         with tempfile.TemporaryDirectory() as temp_dir:
                             block.export(target_directory_path = temp_dir, export_format = ts.Enums.ExportFormats.ExternalSource)
-                            exported_file = os.listdir(temp_dir)[0]
-                            filepath = os.path.join(temp_dir, exported_file)
+                            exported_files = []
+                            for root, _, files in os.walk(temp_dir):
+                                for name in files:
+                                    exported_files.append(os.path.join(root, name))
+
+                            if not exported_files:
+                                return ''
+
+                            filepath = exported_files[0]
                             with open(filepath, 'r', encoding='utf-8') as f:
                                 content = f.read()
+                        
+                        project.close()
                         return content
         
+        project.close()
         return ''
     
