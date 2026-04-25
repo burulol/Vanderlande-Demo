@@ -62,7 +62,7 @@ class TIA_wrapper:
                     block_names.append(block.get_name())
                 return block_names
         
-        return None
+        return []
     
     def list_SCL_blocks(self, project_name, plc_name):
         project = self.get_project_by_name(project_name)
@@ -78,7 +78,7 @@ class TIA_wrapper:
                         scl_blocks.append(block.get_name())
                 return scl_blocks
         
-        return None
+        return []
 
     def get_code(self, project_name, plc_name, block_name):
 
@@ -99,5 +99,5 @@ class TIA_wrapper:
                                 content = f.read()
                         return content
         
-        return None
+        return ''
     
