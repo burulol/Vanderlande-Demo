@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanderlande second interview demo</title>
+    <link rel="stylesheet" href="/ui/styles.css">
+    <script src="/ui/script.js"></script>
+</head>
+
+<body>
+    
+    <div id="header">
+        <h1>PLC code diff tool demo</h1>
+    </div>
+
+    <div id="selections">   
+        <div class="selection-group">
+            <label for="project-select">Select Project:</label>
+            <select id="project-select">
+                <option value="">-- Select a project --</option>
+            </select>
+        </div>
+
+        <div class="selection-group">
+            <label for="plc-select">Select PLC:</label>
+            <select id="plc-select" disabled>
+                <option value="">-- Select a PLC --</option>
+            </select>
+        </div>
+
+        <div class="selection-group">
+            <label for="block-select">Select Program Block:</label>
+            <select id="block-select" disabled>
+                <option value="">-- Select a program block --</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="code-displays-container">
+        <div class="code-display">
+            <h2>Local version</h2>
+            <div class="code-block">
+                <span id="local-code-placeholder">Select a program block to display local code</span>
+                <textarea id="local-code" readonly></textarea>
+            </div>
+        </div>
+
+        <div class="code-display">
+            <h2>Reference version</h2>
+            <div class="code-block">
+                <textarea id="reference-code" readonly></textarea>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

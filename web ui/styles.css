@@ -1,0 +1,100 @@
+:root {
+    --primary-color: #0B192C;
+    --secondary-color: #1E3E62;
+    --background-color: #1d1d1d;
+    --text-color: #d8793a;
+
+    padding: 0px;
+    margin: 0px;
+
+    font-family: IBM-Plex-Sans, sans-serif;
+    color: var(--text-color);
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    background-color: var(--background-color);
+}
+
+#header {
+    background-color: var(--primary-color);
+    padding: 20px 0px;
+    text-align: center;
+    color: var(--text-color);
+    width: 100%;
+    height: 80px;
+}
+
+#selections {
+    height: 80px;
+    background-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selection-group {
+    margin: 0px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.selection-group label {
+    display: block;
+    font-size: 16px;
+}
+
+.selection-group select {
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 2px;
+    width: 250px;
+    text-align: center;
+}
+
+#code-displays-container {
+    padding-top: 40px;
+    height: calc(100vh - 260px);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.code-display {
+    display: inline-block;
+    width: calc(50vw - 100px);
+    height: 95%;
+    background-color: var(--secondary-color);
+    padding: 0px 20px;
+    border-radius: 4px;
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+.code-block {
+    height: 85%;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#local-code-placeholder {
+    opacity: 0.5;
+}
+
+.code-block textarea {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    resize: none;
+    font-family: inherit;
+    font-size: inherit;
+}

@@ -1,14 +1,25 @@
 from threading import Lock
+from pathlib import Path
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, send_from_directory
 
 from TIA_wrapper import TIA_wrapper
 
 
-app = Flask(__name__)
+WEB_UI_DIR = Path(__file__).parent / "web ui"
+
+app = Flask(__name__, static_folder=str(WEB_UI_DIR), static_url_path="/ui")
 
 _tia_wrapper = None
 _tia_lock = Lock()
+
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    return response
 
 
 def get_tia_wrapper() -> TIA_wrapper:
@@ -77,6 +88,10 @@ def get_program_block_code(project_name, plc_name, block_name):
 	except Exception as exc:
 		return jsonify({"error": str(exc)}), 500
 
+
+@app.get("/")
+def index():
+    return send_from_directory(WEB_UI_DIR, "index.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
