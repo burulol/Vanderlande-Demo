@@ -64,3 +64,40 @@ class TIA_wrapper:
         
         return None
     
+    def list_SCL_blocks(self, project_name, plc_name):
+        project = self.get_project_by_name(project_name)
+
+        plcs = project.get_plcs()
+
+        for plc in plcs:
+            if plc.get_name() == plc_name:
+                program_blocks = plc.get_program_blocks()
+                scl_blocks = []
+                for block in program_blocks:
+                    if block.get_property(name = 'ProgrammingLanguage') == 'SCL' and block.get_property(name = 'IsKnowHowProtected') == 'False':
+                        scl_blocks.append(block.get_name())
+                return scl_blocks
+        
+        return None
+
+    def get_code(self, project_name, plc_name, block_name):
+
+        project = self.get_project_by_name(project_name)
+
+        plcs = project.get_plcs()
+
+        for plc in plcs:
+            if plc.get_name() == plc_name:
+                program_blocks = plc.get_program_blocks()
+                for block in program_blocks:
+                    if block.get_name() == block_name:
+                        with tempfile.TemporaryDirectory() as temp_dir:
+                            block.export(target_directory_path = temp_dir, export_format = ts.Enums.ExportFormats.ExternalSource)
+                            exported_file = os.listdir(temp_dir)[0]
+                            filepath = os.path.join(temp_dir, exported_file)
+                            with open(filepath, 'r', encoding='utf-8') as f:
+                                content = f.read()
+                        return content
+        
+        return None
+    
