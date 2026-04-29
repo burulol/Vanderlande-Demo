@@ -4,7 +4,8 @@ import siemens_tia_scripting as ts
 import tempfile
 import glob
 
-version = "20.0"
+version = "17.0"
+extension = ".ap17"
 projects_folder = r"C:\\Users\\burui\\Documents\\Automation"
 
 class TIA_wrapper:
@@ -13,7 +14,7 @@ class TIA_wrapper:
 
     def list_projects(self):
 
-        paths = glob.glob(f"{projects_folder}/**/*.ap20", recursive=True)
+        paths = glob.glob(f"{projects_folder}/**/*" + extension, recursive=True)
 
         projects = []
 
@@ -27,7 +28,7 @@ class TIA_wrapper:
     
     def get_project_by_name(self, project_name):
 
-        project_name += ".ap20"
+        project_name += extension
 
         project_path = os.path.join(projects_folder, project_name)
 
